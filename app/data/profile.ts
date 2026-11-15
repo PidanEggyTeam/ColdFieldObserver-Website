@@ -104,9 +104,4 @@ export const SOCIAL_LINKS: SocialLink[] = [
     url: 'https://qm.qq.com/q/o4dcIiXuAa',
     icon: 'i-simple-icons-qq',
   },
-  {
-    name: 'RSS订阅',
-    url: '/atom.xml',
-    icon: 'i-lucide-rss',
-  },
 ];

@@ -1,4 +1,4 @@
-# Copilot Instructions
+# AGENTS.md
 
 > 本文件仅适用于 **coldfieldobserver.github.io**（冷域观者的个人网站），请勿套用到同作者的其他仓库。
 
@@ -9,7 +9,7 @@
 - 视觉语言是**现代圆角风 + 机甲蓝**：圆角（`rounded-lg` / `rounded-xl`）、1px 描边、hover 换描边色与阴影、留白充足。**已放弃** `clip-path` 切角、等宽小标签、霓虹外发光那一套，不要再引入。
 - 层级只用「描边 + hover 阴影」，**不要用底色差做卡片分层**：页面底 `#eaf1fd` 与卡片白 `#ffffff` 亮度只差约 1%，靠底色分层等于没有边界。
 - **不要引入全屏加载动画**：首屏只保留 `PageProgress` 这条细进度条，任何「等 JS 初始化完再显示页面」的实现都会被回退。
-- 搜索弹窗用原生 `<dialog>` + `showModal()`（焦点陷阱 / ESC / 滚动锁由浏览器负责），关闭后要清空关键词并把焦点还给触发元素。**不要**迁到 `UModal`：两者都在 top layer，叠放顺序的风险大于视觉收益。
+- 搜索弹窗用 Nuxt UI 的 `UModal`（`v-model:open` 受控），开合动画直接复用 Nuxt UI 的模态过渡，与 PidanUI 官网搜索弹窗视觉一致；焦点陷阱 / ESC / 遮罩点击 / 滚动锁由 UModal 负责。关闭后必须清空关键词并把焦点还给触发元素（`restoreSearchDialogFocus` 兜底，因弹窗由 v-model 受控、无 UModal 触发源，UModal 不会自动还原焦点）。
 - 新增动效必须遵循系统「减少动态效果」偏好，补 `@media (prefers-reduced-motion: reduce)` 分支。
 - 悬浮反馈只用掉颜色、描边、阴影与封面轻微 `scale`；**不要**做位移、旋转一类夸张效果（长列表里会抖）。
 - 网格底纹（`--grid-line`）只允许出现在首页 Hero 一处，其余页面用纯色底。
@@ -149,7 +149,7 @@ content.config.ts / nuxt.config.ts / wrangler.jsonc
 
 ## 内容与数据
 
-- 文章 frontmatter：`title`、`date`（`YYYY-MM-DD HH:mm:ss`）、`categories`、`tags`、`description`、`stickypost`（仅 `true` 置顶）、`cover`。字段类型在 `content.config.ts` 用 zod 声明，**新增字段先改 schema**。
+- 文章 frontmatter：`title`、`date`（`YYYY-MM-DD HH:mm:ss`）、`categories`、`tags`、`description`、`stickypost`（仅 `true` 置顶）、`cover`、`author`（可选，文章作者；**未定义时由 `shared/utils/post.ts` 的 `toBasePost` 回退到 `SITE.author`（ColdFieldObserver）**）。字段类型在 `content.config.ts` 用 zod 声明，**新增字段先改 schema**。
 - `date` 由 YAML 1.2 解析成字符串，**必须**经 `shared/utils/date.ts` 的 `parsePostDate()` 按 UTC 解释，否则构建机时区不同会导致日期漂移。
 - 数据链路：`server/routes/api/posts.json.ts`（轻量列表）与 `api/search.json`（检索语料）在构建期查询内容库、预渲染成静态 JSON；前端由 `plugins/posts.ts` 预取进 `useState('posts:all')`，组件通过 `useAllPosts()` 读取。**不要在普通组件里直接调 `queryCollection`**；只有页面在 `<Suspense>` 内（如 `posts/[slug].vue`）才用 `useAsyncData` + `queryCollection`。
 - 列表分页统一 `usePagedPosts(getCurrent, getSource)`；`PAGE_SIZE`（9）在 `shared/site.ts`，构建期枚举与前端共用同一常量。
@@ -160,6 +160,7 @@ content.config.ts / nuxt.config.ts / wrangler.jsonc
 ## 样式与 Nuxt UI 约定
 
 - 全局样式在 `app/assets/styles/`：`main.css`（入口）→ `tokens.css`（`@theme` 令牌）→ `base.css`（真值变量 + Preflight 之后的补丁）→ `prose.css` / `animation.css`。页面与组件样式写在各自 `.vue` 的 `<style scoped>`。
+- **样式与版式基线来自重构提交 `c51eb265`**：该提交一次性拆散了原有的「顶栏 + 核心内容区域 + 双侧边栏」版式，引入 Nuxt UI 样式接管，并**放弃项目自建 reset、改引 Tailwind Preflight**（见下方 `main.css` 的 `preflight.css` 引入）。当前壳层是 `layouts/default.vue` 的「进度条 + 顶栏 + 主内容 + 底栏」。**不要再试图恢复双侧边栏**，也不要回退到无 Preflight 的自建 reset 方案——Preflight 是有意为之，不是遗留 bug。
 - `main.css` 顺序即正确性，**不要动**：
 
   ```css
@@ -219,6 +220,7 @@ content.config.ts / nuxt.config.ts / wrangler.jsonc
 - 无 JS 降级规则统一写在 `base.css` 末尾的「无 JavaScript 降级」段，**不要写进组件的 `<style scoped>`**（Vue scoped 会把 `:global(html:not(.js)) .foo` 收窄错）。
 - 不要在模板里用 `<noscript>` 做降级（会造成 hydration mismatch），统一走 `html:not(.js)` + CSS。
 - 响应式显隐用 `lg:hidden` 这类 class，**不要用 `hidden` 属性**：Preflight 给 `[hidden]` 加了 `display:none !important`，工具类救不回来。
+- **弹窗滚动锁不补 padding**：本站 `html` 已用 `scrollbar-gutter: stable` 预留滚动条槽位；reka/Nuxt UI 打开 `UModal` 时仍会给 `body` 注入 `padding-right` 补偿，反而让背景页整体左移。`base.css` 用 `body { padding-right: 0 !important }` 强制清零，**不要移除**——去掉它背景页就会在开弹窗时左移。
 
 ## 动效契约
 
