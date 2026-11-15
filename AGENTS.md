@@ -115,6 +115,7 @@ shared/                           # site.ts（SITE / PAGE_SIZE / GISCUS）、typ
 build/post-index.ts               # 构建期 fs 枚举：prerender 路由全集
 scripts/                          # sync-fonts.mjs（注入本地字体）、verify-output.mjs（产物断言）
 content.config.ts / nuxt.config.ts / wrangler.jsonc
+- `nuxt.config.ts` 的 `devtools.enabled` 与 PidanUI 官网对齐：**仅开发态启用**（`true`），Nuxt 不会把 DevTools 打进 `nuxi generate` 的生产产物，无需在生产配置里关闭。
 ```
 
 不要提交 `.nuxt/`、`.output/`、`.data/`、`.wrangler/`、`debug.log` 等产物与日志（已在 `.gitignore`）。
