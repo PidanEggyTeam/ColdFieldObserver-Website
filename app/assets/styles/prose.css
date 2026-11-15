@@ -76,6 +76,40 @@
     font-size: 1.02em;
   }
 
+  /* 标题锚点按钮（ProseH1~H4 渲染）：标题文字不再是链接，只有 # 可点击跳转。
+     桌面端（≥1024px）在标题左侧悬浮、悬停标题时显现；移动端隐藏（沿用旧行为，
+     移动端无 hover 且易溢出左缘）。 */
+  .post-content .post-h-anchor {
+    position: absolute;
+    left: -0.9em;
+    top: 0.12em;
+    display: none;
+    font-weight: 700;
+    font-size: 0.82em;
+    line-height: 1.4;
+    color: var(--ink-3);
+    text-decoration: none;
+    opacity: 0;
+    transition:
+      opacity 0.18s ease,
+      color 0.18s ease;
+  }
+
+  @media (min-width: 1024px) {
+    .post-content .post-h-anchor {
+      display: inline-block;
+    }
+  }
+
+  .post-content :is(h1, h2, h3, h4, h5, h6):hover > .post-h-anchor,
+  .post-content .post-h-anchor:focus-visible {
+    opacity: 1;
+  }
+
+  .post-content .post-h-anchor:hover {
+    color: var(--accent-deep);
+  }
+
   .post-content p {
     margin: 0.85em 0;
   }
@@ -209,14 +243,34 @@
     display: table;
     width: 100%;
     margin: 0;
-    border-collapse: collapse;
+    /* 用 separate + border-spacing:0：Nuxt UI 的 ProseTr/ProseTh 会给四角单元格
+       加 rounded-* 工具类，但 border-collapse: collapse 会让单元格圆角失效，
+       四角因此呈现直角。separate 下圆角才生效，外圆角由 table 自身的
+       border-radius + overflow:hidden 收口（保证四角干净的圆角描边）。 */
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
     font-size: 14.5px;
   }
 
   .post-content table :is(th, td) {
     padding: 9px 14px;
     text-align: left;
-    border: 1px solid var(--line);
+    /* 只画右/下边框，避免 separate 下相邻单元格边框叠加成双倍；
+       上/左外边框由 table 的 border 承担。 */
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* 末列去掉右边框、末行去掉下边框，避免与外边框重叠成双倍 */
+  .post-content table :is(th, td):last-child {
+    border-right: none;
+  }
+
+  .post-content table tbody tr:last-child :is(td) {
+    border-bottom: none;
   }
 
   .post-content table thead th {
@@ -225,11 +279,24 @@
     background: var(--bg);
   }
 
+  /* 图片默认不撑满容器：取自然宽度并居中，只有超大图才收窄到容器宽度。
+     Nuxt UI 的 ProseImg 会给 <img> 加 w-full（width:100%，位于 @layer utilities，
+     会盖过本文件 components 层的普通声明），这里用 !important 在桌面端把宽度
+     改回 auto。移动端恢复为 100% 撑满（见下方媒体查询），保留原移动端表现。 */
   .post-content img {
+    display: block;
+    width: auto !important;
     max-width: 100%;
     height: auto;
-    margin: 1em 0;
+    margin: 1em auto;
     border-radius: var(--radius-md);
+  }
+
+  /* 移动端：图片宽度恢复为撑满文章容器（与旧行为一致） */
+  @media (max-width: 1023px) {
+    .post-content img {
+      width: 100% !important;
+    }
   }
 
   .post-content details {
@@ -239,6 +306,12 @@
     border: 1px solid var(--line);
     border-radius: var(--radius-md);
   }
+
+  /* 图表（转载文章的 SVG 示意，包在 <figure class="wfig"> 内，外层套 <details>）。
+     其样式不再放在全局：因为目前只有 20261115-how-people-read-web 这一篇转载文章
+     用到，对应的卡片外壳 / 横向滚动 / 图片尺寸样式随图表一起迁到了该文章的局部
+     <style>（图表本体拆为 public/images/posts/how-people-read-web/*.svg，经 <img>
+     引用）。新增图表文章时，若通用化需求明确，再考虑回收到此处。 */
 
   .post-content .katex-display {
     margin: 1em 0;

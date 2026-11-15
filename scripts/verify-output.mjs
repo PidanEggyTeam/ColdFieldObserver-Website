@@ -8,7 +8,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildRoutes } from '../build/post-index.ts';
+import { buildRoutes, buildSitemapRoutes } from '../build/post-index.ts';
+import { SITE } from '../shared/site.ts';
 
 const PUBLIC_DIR = fileURLToPath(new URL('../.output/public', import.meta.url));
 
@@ -38,6 +39,24 @@ const missing = routes.filter((route) => !existsSync(join(PUBLIC_DIR, toFile(rou
 if (missing.length) {
   failures.push(`${missing.length} 条路由没有产物：`);
   for (const route of missing) failures.push(`  - ${route}  (期望 ${toFile(route)})`);
+}
+
+const sitemapFile = join(PUBLIC_DIR, 'sitemap.xml');
+if (!existsSync(sitemapFile)) {
+  failures.push('缺少 sitemap.xml：构建期网站地图没有生成');
+} else {
+  const sitemap = readFileSync(sitemapFile, 'utf8');
+  const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(([, url]) => url);
+  const expectedUrls = buildSitemapRoutes().map((route) => new URL(route, `${SITE.mainUrl}/`).href);
+  if (!sitemap.includes('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')) {
+    failures.push('sitemap.xml 缺少 sitemap.org 标准 urlset 根节点');
+  }
+  if (
+    urls.length !== expectedUrls.length ||
+    urls.some((url, index) => url !== expectedUrls[index])
+  ) {
+    failures.push('sitemap.xml 中的页面地址与可收录路由不一致');
+  }
 }
 
 // assets-only Worker 的产物里不该有服务端入口，否则 wrangler deploy 会失败
@@ -73,4 +92,6 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`[verify] ${routes.length} 条路由全部有产物 ✓ 字体自包含 / 静态预设 / 无工具页 ✓`);
+console.log(
+  `[verify] ${routes.length} 条路由全部有产物 ✓ sitemap ${buildSitemapRoutes().length} 页 ✓ 字体自包含 / 静态预设 / 无工具页 ✓`,
+);

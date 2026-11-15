@@ -7,6 +7,10 @@
 ### 交互与视觉（硬性规则）
 
 - 视觉语言是**现代圆角风 + 机甲蓝**：圆角（`rounded-lg` / `rounded-xl`）、1px 描边、hover 换描边色与阴影、留白充足。**已放弃** `clip-path` 切角、等宽小标签、霓虹外发光那一套，不要再引入。
+- **文章表格四角必须是圆角**：`.post-content table` 用 `border-collapse: separate` + 自身 `border` + `border-radius` + `overflow: hidden` 收口。**不要**改回 `border-collapse: collapse`——它会使 Nuxt UI 给四角单元格加的 `rounded-*` 工具类失效，四角变回直角。
+- **文章标题的链接规则**：`app/components/content/ProseH1~H4.vue` 覆盖了 Nuxt UI 默认标题组件——**标题文字本身不是链接**，只保留一个独立的 `<a href="#id">#</a>` 锚点按钮（桌面 hover 显现、移动端隐藏）。**不要**把标题文字再包回 `<a>`，否则整段标题会变成可点击的锚点链接。
+- **文章图片宽度**：桌面端取自然宽度、不撑满容器（Nuxt UI 的 `ProseImg` 会加 `w-full`，在 `prose.css` 用 `width: auto !important` 压回）；**移动端（≤1023px）恢复 `width: 100%` 撑满容器**（旧行为保留）。调整图片宽度时这两处必须成对改。
+- **文章图表（SVG 示意）拆为独立文件 + 文章局部样式**：图表本体拆到 `public/images/posts/<slug>/*.svg`，正文用 `<figure class="wfig"><div class="wfig-scroll"><img src="..."></div></figure>`（外层 `<details>`）引用。**其样式（`figure.wfig` 卡片外壳、`.wfig-scroll` 横向滚动、`img` 尺寸）写在文章自身的局部 `<style>` 里，不进全局 `prose.css`**——因为这些样式目前只被单篇转载文章使用，避免污染全局。新增图表文章若通用化需求明确，再考虑回收到 `prose.css`。
 - 层级只用「描边 + hover 阴影」，**不要用底色差做卡片分层**：页面底 `#eaf1fd` 与卡片白 `#ffffff` 亮度只差约 1%，靠底色分层等于没有边界。
 - **不要引入全屏加载动画**：首屏只保留 `PageProgress` 这条细进度条，任何「等 JS 初始化完再显示页面」的实现都会被回退。
 - 搜索弹窗用 Nuxt UI 的 `UModal`（`v-model:open` 受控），开合动画直接复用 Nuxt UI 的模态过渡，与 PidanUI 官网搜索弹窗视觉一致；焦点陷阱 / ESC / 遮罩点击 / 滚动锁由 UModal 负责。关闭后必须清空关键词并把焦点还给触发元素（`restoreSearchDialogFocus` 兜底，因弹窗由 v-model 受控、无 UModal 触发源，UModal 不会自动还原焦点）。
@@ -52,7 +56,7 @@
 
 ```bash
 pnpm dev                       # 本地开发（默认 http://localhost:3000）
-pnpm build                     # nuxi generate + 注入字体 + 产物校验，输出 .output/public
+pnpm build                     # nuxi generate + 生成 sitemap.xml + 注入字体 + 产物校验，输出 .output/public
 pnpm generate                  # 只跑 nuxi generate（不注入字体 / 不校验，仅供调试）
 pnpm preview                   # wrangler dev：按 Cloudflare 的规则跑静态产物
 pnpm deploy                    # 构建 + wrangler deploy（本地手动发版兜底）
@@ -250,7 +254,7 @@ content.config.ts / nuxt.config.ts / wrangler.jsonc
 
 ## 提交前自检清单
 
-1. `pnpm build` 通过且零警告（`failOnError: true`，任何预渲染 404 都会失败）。
+1. `pnpm build` 通过且零警告（`failOnError: true`，任何预渲染 404 都会失败；`.output/public/sitemap.xml` 页面清单正确）。
 2. `find .output/public -name "*.html"` 与预期路由一致（**没有 `about.html`**）；中文分类 / 标签文件名未被百分号编码。
 3. 浏览器实看（`pnpm preview`）：`/`、`/posts/`、`/archives/`、`/categories/`、`/tags/`、`/search/`、一篇 `/posts/<slug>`；确认产物里没有 `tools/`。
 4. 桌面与 ≤1024px 各过一遍：汉堡下拉开合（收起时 `inert`）、搜索弹窗（`Ctrl / ⌘ + K` 与 `/`）、主题三态切换、返回顶部。
