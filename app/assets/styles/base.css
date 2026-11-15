@@ -327,6 +327,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* 弹窗滚动锁修正：reka/Nuxt UI 的 useBodyScrollLock 打开 UModal 时会给 body
+     注入 padding-right 补偿滚动条宽度。但本站 html 已用 scrollbar-gutter: stable
+     预留槽位（滚动条永不消失），这笔 padding 纯属多余，会把居中内容整体左移。
+     强制清零（!important 才能压过 reka 写进 body 的内联样式）。 */
+  body {
+    padding-right: 0 !important;
+  }
+
   /* Preflight 的 img/svg 是 display:block，会让「文字 + 图标」竖排 */
   svg {
     vertical-align: middle;
