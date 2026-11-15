@@ -8,6 +8,9 @@
 
 - 视觉语言是**现代圆角风 + 机甲蓝**：圆角（`rounded-lg` / `rounded-xl`）、1px 描边、hover 换描边色与阴影、留白充足。**已放弃** `clip-path` 切角、等宽小标签、霓虹外发光那一套，不要再引入。
 - **文章表格四角必须是圆角**：`.post-content table` 用 `border-collapse: separate` + 自身 `border` + `border-radius` + `overflow: hidden` 收口。**不要**改回 `border-collapse: collapse`——它会使 Nuxt UI 给四角单元格加的 `rounded-*` 工具类失效，四角变回直角。
+- **文章标题的链接规则**：`app/components/content/ProseH1~H4.vue` 覆盖了 Nuxt UI 默认标题组件——**标题文字本身不是链接**，只保留一个独立的 `<a href="#id">#</a>` 锚点按钮（桌面 hover 显现、移动端隐藏）。**不要**把标题文字再包回 `<a>`，否则整段标题会变成可点击的锚点链接。
+- **文章图片宽度**：桌面端取自然宽度、不撑满容器（Nuxt UI 的 `ProseImg` 会加 `w-full`，在 `prose.css` 用 `width: auto !important` 压回）；**移动端（≤1023px）恢复 `width: 100%` 撑满容器**（旧行为保留）。调整图片宽度时这两处必须成对改。
+- **文章图表（SVG 示意）走全局样式**：图表包在 `<figure class="wfig">`（外层 `<details>`）。其样式（`figure.wfig` 卡片外壳、`.wfig-scroll` 横向滚动、`svg` 尺寸）**只写在 `prose.css`**，文章正文里**不要**再写内联 `<style>`（SSG 预渲染 / 清理时易被剥掉，且不符合全局样式约定）。
 - 层级只用「描边 + hover 阴影」，**不要用底色差做卡片分层**：页面底 `#eaf1fd` 与卡片白 `#ffffff` 亮度只差约 1%，靠底色分层等于没有边界。
 - **不要引入全屏加载动画**：首屏只保留 `PageProgress` 这条细进度条，任何「等 JS 初始化完再显示页面」的实现都会被回退。
 - 搜索弹窗用 Nuxt UI 的 `UModal`（`v-model:open` 受控），开合动画直接复用 Nuxt UI 的模态过渡，与 PidanUI 官网搜索弹窗视觉一致；焦点陷阱 / ESC / 遮罩点击 / 滚动锁由 UModal 负责。关闭后必须清空关键词并把焦点还给触发元素（`restoreSearchDialogFocus` 兜底，因弹窗由 v-model 受控、无 UModal 触发源，UModal 不会自动还原焦点）。
