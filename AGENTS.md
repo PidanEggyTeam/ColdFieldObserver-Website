@@ -56,7 +56,7 @@
 
 ```bash
 pnpm dev                       # 本地开发（默认 http://localhost:3000）
-pnpm build                     # nuxi generate + 注入字体 + 产物校验，输出 .output/public
+pnpm build                     # nuxi generate + 生成 sitemap.xml + 注入字体 + 产物校验，输出 .output/public
 pnpm generate                  # 只跑 nuxi generate（不注入字体 / 不校验，仅供调试）
 pnpm preview                   # wrangler dev：按 Cloudflare 的规则跑静态产物
 pnpm deploy                    # 构建 + wrangler deploy（本地手动发版兜底）
@@ -254,7 +254,7 @@ content.config.ts / nuxt.config.ts / wrangler.jsonc
 
 ## 提交前自检清单
 
-1. `pnpm build` 通过且零警告（`failOnError: true`，任何预渲染 404 都会失败）。
+1. `pnpm build` 通过且零警告（`failOnError: true`，任何预渲染 404 都会失败；`.output/public/sitemap.xml` 页面清单正确）。
 2. `find .output/public -name "*.html"` 与预期路由一致（**没有 `about.html`**）；中文分类 / 标签文件名未被百分号编码。
 3. 浏览器实看（`pnpm preview`）：`/`、`/posts/`、`/archives/`、`/categories/`、`/tags/`、`/search/`、一篇 `/posts/<slug>`；确认产物里没有 `tools/`。
 4. 桌面与 ≤1024px 各过一遍：汉堡下拉开合（收起时 `inert`）、搜索弹窗（`Ctrl / ⌘ + K` 与 `/`）、主题三态切换、返回顶部。
