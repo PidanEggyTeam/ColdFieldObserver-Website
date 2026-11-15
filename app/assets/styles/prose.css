@@ -306,28 +306,10 @@
   }
 
   /* 图表（转载文章的 SVG 示意，包在 <figure class="wfig"> 内，外层套 <details>）。
-     原先依赖文章内联 <style>，在 SSG 预渲染 / 收紧清理时易被剥掉，且不符合本站
-     「正文样式走全局 prose.css」的约定。这里统一迁到此处，并给图表加一致的卡片
-     外壳（var(--card)），保证明暗主题下都是干净的「图例卡片」，不再出现裸浅色块。 */
-  .post-content figure.wfig {
-    margin: 1.4em 0;
-    padding: 12px 14px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-  }
-
-  .post-content figure.wfig .wfig-scroll {
-    overflow-x: auto;
-    padding-bottom: 4px;
-  }
-
-  .post-content figure.wfig svg {
-    display: block;
-    width: 100%;
-    min-width: 520px;
-    height: auto;
-  }
+     其样式不再放在全局：因为目前只有 20261115-how-people-read-web 这一篇转载文章
+     用到，对应的卡片外壳 / 横向滚动 / 图片尺寸样式随图表一起迁到了该文章的局部
+     <style>（图表本体拆为 public/images/posts/how-people-read-web/*.svg，经 <img>
+     引用）。新增图表文章时，若通用化需求明确，再考虑回收到此处。 */
 
   .post-content .katex-display {
     margin: 1em 0;

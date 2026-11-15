@@ -1,0 +1,39 @@
+<svg viewBox="0 0 680 250" role="img" xmlns="http://www.w3.org/2000/svg" width="680" height="250">
+      <text x="40" y="26" font-size="14" font-weight="500" fill="#2E2C28">
+        同一个页面，视线落在哪里
+      </text>
+      <rect x="40" y="44" width="330" height="182" rx="10" fill="#FFFFFF" stroke="#E4E0D8" />
+      <path d="M40,54 a10,10 0 0 1 10,-10 h310 a10,10 0 0 1 10,10 v26 h-330 z" fill="#CFCFC9" />
+      <rect x="64" y="98" width="282" height="8" rx="4" fill="#E4E0D8" />
+      <rect x="64" y="114" width="282" height="8" rx="4" fill="#E4E0D8" />
+      <rect x="64" y="130" width="282" height="8" rx="4" fill="#E4E0D8" />
+      <rect x="64" y="146" width="282" height="8" rx="4" fill="#E4E0D8" />
+      <rect x="64" y="162" width="282" height="8" rx="4" fill="#E4E0D8" />
+      <rect x="64" y="178" width="282" height="8" rx="4" fill="#E4E0D8" />
+      <rect x="64" y="194" width="200" height="8" rx="4" fill="#E4E0D8" />
+      <rect x="56" y="88" width="298" height="46" rx="8" fill="#E8542A" fill-opacity="0.38" />
+      <rect x="56" y="138" width="298" height="38" rx="8" fill="#EF9A2A" fill-opacity="0.30" />
+      <rect x="56" y="180" width="298" height="34" rx="8" fill="#3B7DD8" fill-opacity="0.18" />
+      <rect x="404" y="52" width="14" height="14" rx="3" fill="#CFCFC9" />
+      <text x="428" y="64" font-size="13" fill="#2E2C28">
+        顶部细长条
+      </text>
+      <text x="428" y="82" font-size="12" fill="#6B655C">
+        整段被跳过
+      </text>
+      <line x1="404" y1="100" x2="604" y2="100" stroke="#E4E0D8" stroke-width="1" />
+      <rect x="404" y="118" width="14" height="14" rx="3" fill="#E8542A" fill-opacity="0.55" />
+      <text x="428" y="130" font-size="13" fill="#2E2C28">
+        主体内容区
+      </text>
+      <text x="428" y="148" font-size="12" fill="#6B655C">
+        视线从这里开始
+      </text>
+      <rect x="404" y="172" width="14" height="14" rx="3" fill="#3B7DD8" fill-opacity="0.45" />
+      <text x="428" y="184" font-size="13" fill="#2E2C28">
+        越往下越少
+      </text>
+      <text x="428" y="202" font-size="12" fill="#6B655C">
+        没滚下去的部分等于不存在
+      </text>
+    </svg>

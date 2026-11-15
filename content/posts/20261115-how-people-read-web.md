@@ -8,8 +8,35 @@ stickypost: false
 author: xxt8582753
 cover: https://img.remit.ee/i/yKYxZ1B9nHYa
 ---
+<style>
+/* 本文转载图表的局部样式：仅本篇使用，不进全局 prose.css。
+   图表已拆分为 public/images/posts/how-people-read-web/*.svg，经 <img> 引用。 */
+.post-content figure.wfig {
+  margin: 1.4em 0;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.post-content figure.wfig .wfig-scroll {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.post-content figure.wfig img {
+  display: block;
+  width: 100% !important;
+  min-width: 520px;
+  height: auto;
+  margin: 0;
+}
+</style>
+
 
 > 本文转载自[xxtsoft.top](https://xxtsoft.top)，原文链接：<https://xxtsoft.top/articles/scanning.html>（发布于 2026 年 10 月 1 日）。
+>
+> 注：本文中的 SVG 图表在深色模式下会出现渲染问题，建议在浅色模式下查看（这些图表默认会被收起）。
 
 哈喽小伙伴们，国庆节快乐呀🎉
 
@@ -55,74 +82,7 @@ cover: https://img.remit.ee/i/yKYxZ1B9nHYa
 
 <figure class="wfig">
   <div class="wfig-scroll">
-    <svg viewBox="0 0 680 364" role="img" xmlns="http://www.w3.org/2000/svg">
-      <rect x="40" y="20" width="280" height="130" rx="10" fill="#F5F4F1" />
-      <text x="56" y="46" font-size="14" font-weight="500" fill="#2E2C28">
-        F 型
-      </text>
-      <rect x="56" y="54" width="248" height="80" rx="6" fill="#FFFFFF" />
-      <rect x="68" y="64" width="190" height="7" rx="3" fill="#E4E0D8" />
-      <rect x="68" y="76" width="190" height="7" rx="3" fill="#E4E0D8" />
-      <rect x="68" y="88" width="190" height="7" rx="3" fill="#E4E0D8" />
-      <rect x="68" y="100" width="190" height="7" rx="3" fill="#E4E0D8" />
-      <rect x="68" y="112" width="190" height="7" rx="3" fill="#E4E0D8" />
-      <rect x="68" y="62" width="190" height="18" fill="#FFB020" fill-opacity="0.32" />
-      <rect x="68" y="86" width="110" height="18" fill="#FFB020" fill-opacity="0.26" />
-      <rect x="68" y="62" width="18" height="62" fill="#FFB020" fill-opacity="0.20" />
-      <text x="56" y="176" font-size="12" fill="#6B655C">
-        没有小标题时，眼睛的兜底策略
-      </text>
-      <rect x="360" y="20" width="280" height="130" rx="10" fill="#F5F4F1" />
-      <text x="376" y="46" font-size="14" font-weight="500" fill="#2E2C28">
-        分层蛋糕
-      </text>
-      <rect x="376" y="54" width="248" height="80" rx="6" fill="#FFFFFF" />
-      <rect x="388" y="64" width="190" height="7" rx="3" fill="#E4E0D8" />
-      <rect x="388" y="76" width="190" height="7" rx="3" fill="#E4E0D8" />
-      <rect x="388" y="88" width="190" height="7" rx="3" fill="#E4E0D8" />
-      <rect x="388" y="100" width="190" height="7" rx="3" fill="#E4E0D8" />
-      <rect x="388" y="112" width="190" height="7" rx="3" fill="#E4E0D8" />
-      <rect x="388" y="62" width="168" height="14" fill="#FFB020" fill-opacity="0.34" />
-      <rect x="388" y="86" width="140" height="14" fill="#FFB020" fill-opacity="0.30" />
-      <rect x="388" y="110" width="176" height="14" fill="#FFB020" fill-opacity="0.26" />
-      <text x="376" y="176" font-size="12" fill="#6B655C">
-        只看小标题，正文整段跳过
-      </text>
-      <g transform="translate(0,20)">
-        <rect x="40" y="170" width="280" height="130" rx="10" fill="#F5F4F1" />
-        <text x="56" y="196" font-size="14" font-weight="500" fill="#2E2C28">
-          斑点
-        </text>
-        <rect x="56" y="204" width="248" height="80" rx="6" fill="#FFFFFF" />
-        <rect x="68" y="214" width="190" height="7" rx="3" fill="#E4E0D8" />
-        <rect x="68" y="226" width="190" height="7" rx="3" fill="#E4E0D8" />
-        <rect x="68" y="238" width="190" height="7" rx="3" fill="#E4E0D8" />
-        <rect x="68" y="250" width="190" height="7" rx="3" fill="#E4E0D8" />
-        <rect x="68" y="262" width="190" height="7" rx="3" fill="#E4E0D8" />
-        <rect x="112" y="213" width="34" height="9" rx="4" fill="#FFB020" fill-opacity="0.55" />
-        <rect x="196" y="237" width="28" height="9" rx="4" fill="#FFB020" fill-opacity="0.55" />
-        <rect x="86" y="261" width="38" height="9" rx="4" fill="#FFB020" fill-opacity="0.55" />
-        <rect x="228" y="225" width="22" height="9" rx="4" fill="#FFB020" fill-opacity="0.45" />
-        <text x="56" y="326" font-size="12" fill="#6B655C">
-          只在找某个特定的词或数字
-        </text>
-        <rect x="360" y="170" width="280" height="130" rx="10" fill="#F5F4F1" />
-        <text x="376" y="196" font-size="14" font-weight="500" fill="#2E2C28">
-          割草机
-        </text>
-        <rect x="376" y="204" width="248" height="80" rx="6" fill="#FFFFFF" />
-        <rect x="388" y="214" width="70" height="30" rx="4" fill="#E4E0D8" />
-        <rect x="466" y="214" width="70" height="30" rx="4" fill="#E4E0D8" />
-        <rect x="544" y="214" width="68" height="30" rx="4" fill="#E4E0D8" />
-        <rect x="388" y="252" width="70" height="30" rx="4" fill="#E4E0D8" />
-        <rect x="466" y="252" width="70" height="30" rx="4" fill="#E4E0D8" />
-        <rect x="544" y="252" width="68" height="30" rx="4" fill="#E4E0D8" />
-        <polyline points="406,229 484,229 484,267 562,267 562,229 630,229" fill="none" stroke="#FFB020" stroke-opacity="0.55" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" />
-        <text x="376" y="326" font-size="12" fill="#6B655C">
-          格子、卡片、图文交替的页面
-        </text>
-      </g>
-    </svg>
+    <img src="/images/posts/how-people-read-web/reading-patterns.svg" alt="四种网页扫视模式示意：F 型、分层蛋糕、斑点、割草机">
   </div>
 </figure>
 
@@ -144,31 +104,7 @@ NN/g 在 2019 年做了第二次大规模研究。这次他们在北京也做了
 
 <figure class="wfig">
   <div class="wfig-scroll">
-    <svg viewBox="0 0 680 280" role="img" xmlns="http://www.w3.org/2000/svg">
-      <rect x="40" y="38" width="600" height="200" rx="12" fill="#F5F4F1" />
-      <rect x="95" y="76" width="150" height="40" rx="7" fill="#E9E7E1" />
-      <rect x="265" y="76" width="150" height="40" rx="7" fill="#E9E7E1" />
-      <rect x="435" y="76" width="150" height="40" rx="7" fill="#E9E7E1" />
-      <rect x="95" y="136" width="150" height="40" rx="7" fill="#E9E7E1" />
-      <rect x="265" y="136" width="150" height="40" rx="7" fill="#E9E7E1" />
-      <rect x="435" y="136" width="150" height="40" rx="7" fill="#E9E7E1" />
-      <rect x="95" y="196" width="150" height="40" rx="7" fill="#E9E7E1" />
-      <rect x="265" y="196" width="150" height="40" rx="7" fill="#E9E7E1" />
-      <rect x="435" y="196" width="150" height="40" rx="7" fill="#E9E7E1" />
-      <polyline points="110,96 585,96 585,156 110,156 110,216 585,216" fill="none" stroke="#FFB020" stroke-opacity="0.55" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
-      <circle cx="118" cy="96" r="12" fill="#E08A00" />
-      <text x="118" y="96" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#FFFFFF">
-        1
-      </text>
-      <circle cx="577" cy="156" r="12" fill="#E08A00" />
-      <text x="577" y="156" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#FFFFFF">
-        2
-      </text>
-      <circle cx="118" cy="216" r="12" fill="#E08A00" />
-      <text x="118" y="216" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#FFFFFF">
-        3
-      </text>
-    </svg>
+    <img src="/images/posts/how-people-read-web/lawn-mower.svg" alt="割草机式（lawn-mower）扫视路径示意">
   </div>
 </figure>
 
@@ -216,34 +152,7 @@ NN/g 在 2019 年做了第二次大规模研究。这次他们在北京也做了
 
 <figure class="wfig">
   <div class="wfig-scroll">
-    <svg viewBox="0 0 680 196" role="img" xmlns="http://www.w3.org/2000/svg">
-      <text x="40" y="44" font-size="14" font-weight="500" fill="#2E2C28">
-        间距均匀
-      </text>
-      <text x="250" y="44" font-size="14" font-weight="500" fill="#2E2C28">
-        间距分组
-      </text>
-      <text x="460" y="44" font-size="14" font-weight="500" fill="#2E2C28">
-        边框分组
-      </text>
-      <rect x="40" y="56" width="180" height="74" rx="10" fill="#F5F4F1" />
-      <rect x="60" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="92" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="124" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="156" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="250" y="56" width="180" height="74" rx="10" fill="#F5F4F1" />
-      <rect x="260" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="284" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="336" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="360" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="460" y="56" width="180" height="74" rx="10" fill="#F5F4F1" />
-      <rect x="471" y="74" width="60" height="38" rx="7" fill="none" stroke="#9AA3B0" stroke-width="1" />
-      <rect x="481" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="505" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="547" y="74" width="60" height="38" rx="7" fill="none" stroke="#9AA3B0" stroke-width="1" />
-      <rect x="557" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-      <rect x="581" y="84" width="18" height="18" rx="4" fill="#C8CDD6" />
-    </svg>
+    <img src="/images/posts/how-people-read-web/spacing-groups.svg" alt="间距均匀、间距分组、边框分组三种排版对比">
   </div>
 </figure>
 
@@ -281,32 +190,7 @@ NN/g 在 2019 年做了第二次大规模研究。这次他们在北京也做了
 
 <figure class="wfig">
   <div class="wfig-scroll">
-    <svg viewBox="0 0 680 190" role="img" xmlns="http://www.w3.org/2000/svg">
-      <rect x="180" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
-      <rect x="236" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
-      <rect x="292" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
-      <rect x="348" y="40" width="40" height="40" rx="10" fill="#FF5C93" />
-      <rect x="404" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
-      <rect x="460" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
-      <text x="40" y="66" font-size="12" fill="#6B655C">
-        五个一样，一个不同
-      </text>
-      <text x="640" y="66" font-size="12" fill="#6B655C" text-anchor="end">
-        眼睛直奔那个彩的
-      </text>
-      <rect x="180" y="110" width="40" height="40" rx="10" fill="#FEC433" />
-      <rect x="236" y="110" width="40" height="40" rx="10" fill="#FF5C93" />
-      <rect x="292" y="110" width="40" height="40" rx="10" fill="#3B8FF0" />
-      <rect x="348" y="110" width="40" height="40" rx="10" fill="#21B8AE" />
-      <rect x="404" y="110" width="40" height="40" rx="10" fill="#8B5CF6" />
-      <rect x="460" y="110" width="40" height="40" rx="10" fill="#4CAF50" />
-      <text x="40" y="136" font-size="12" fill="#6B655C">
-        六个全都不一样
-      </text>
-      <text x="640" y="136" font-size="12" fill="#6B655C" text-anchor="end">
-        眼睛没有落点
-      </text>
-    </svg>
+    <img src="/images/posts/how-people-read-web/isolation.svg" alt="孤立效应（Von Restorff）：五个相同一个不同 vs 六个都不同">
   </div>
 </figure>
 
@@ -338,45 +222,7 @@ NN/g 在 2019 年做了第二次大规模研究。这次他们在北京也做了
 
 <figure class="wfig">
   <div class="wfig-scroll">
-    <svg viewBox="0 0 680 250" role="img" xmlns="http://www.w3.org/2000/svg">
-      <text x="40" y="26" font-size="14" font-weight="500" fill="#2E2C28">
-        同一个页面，视线落在哪里
-      </text>
-      <rect x="40" y="44" width="330" height="182" rx="10" fill="#FFFFFF" stroke="#E4E0D8" />
-      <path d="M40,54 a10,10 0 0 1 10,-10 h310 a10,10 0 0 1 10,10 v26 h-330 z" fill="#CFCFC9" />
-      <rect x="64" y="98" width="282" height="8" rx="4" fill="#E4E0D8" />
-      <rect x="64" y="114" width="282" height="8" rx="4" fill="#E4E0D8" />
-      <rect x="64" y="130" width="282" height="8" rx="4" fill="#E4E0D8" />
-      <rect x="64" y="146" width="282" height="8" rx="4" fill="#E4E0D8" />
-      <rect x="64" y="162" width="282" height="8" rx="4" fill="#E4E0D8" />
-      <rect x="64" y="178" width="282" height="8" rx="4" fill="#E4E0D8" />
-      <rect x="64" y="194" width="200" height="8" rx="4" fill="#E4E0D8" />
-      <rect x="56" y="88" width="298" height="46" rx="8" fill="#E8542A" fill-opacity="0.38" />
-      <rect x="56" y="138" width="298" height="38" rx="8" fill="#EF9A2A" fill-opacity="0.30" />
-      <rect x="56" y="180" width="298" height="34" rx="8" fill="#3B7DD8" fill-opacity="0.18" />
-      <rect x="404" y="52" width="14" height="14" rx="3" fill="#CFCFC9" />
-      <text x="428" y="64" font-size="13" fill="#2E2C28">
-        顶部细长条
-      </text>
-      <text x="428" y="82" font-size="12" fill="#6B655C">
-        整段被跳过
-      </text>
-      <line x1="404" y1="100" x2="604" y2="100" stroke="#E4E0D8" stroke-width="1" />
-      <rect x="404" y="118" width="14" height="14" rx="3" fill="#E8542A" fill-opacity="0.55" />
-      <text x="428" y="130" font-size="13" fill="#2E2C28">
-        主体内容区
-      </text>
-      <text x="428" y="148" font-size="12" fill="#6B655C">
-        视线从这里开始
-      </text>
-      <rect x="404" y="172" width="14" height="14" rx="3" fill="#3B7DD8" fill-opacity="0.45" />
-      <text x="428" y="184" font-size="13" fill="#2E2C28">
-        越往下越少
-      </text>
-      <text x="428" y="202" font-size="12" fill="#6B655C">
-        没滚下去的部分等于不存在
-      </text>
-    </svg>
+    <img src="/images/posts/how-people-read-web/banner-blindness.svg" alt="同一页面视线落点示意：顶部细长条被跳过，主体内容区才是起点">
   </div>
 </figure>
 
