@@ -1,26 +1,26 @@
 <svg viewBox="0 0 680 190" role="img" xmlns="http://www.w3.org/2000/svg" width="680" height="190">
-      <rect x="180" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
-      <rect x="236" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
-      <rect x="292" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
-      <rect x="348" y="40" width="40" height="40" rx="10" fill="#FF5C93" />
-      <rect x="404" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
-      <rect x="460" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
-      <text x="40" y="66" font-size="12" fill="#6B655C">
-        五个一样，一个不同
-      </text>
-      <text x="520" y="66" font-size="12" fill="#6B655C" text-anchor="end">
-        眼睛直奔那个彩的
-      </text>
-      <rect x="180" y="110" width="40" height="40" rx="10" fill="#FEC433" />
-      <rect x="236" y="110" width="40" height="40" rx="10" fill="#FF5C93" />
-      <rect x="292" y="110" width="40" height="40" rx="10" fill="#3B8FF0" />
-      <rect x="348" y="110" width="40" height="40" rx="10" fill="#21B8AE" />
-      <rect x="404" y="110" width="40" height="40" rx="10" fill="#8B5CF6" />
-      <rect x="460" y="110" width="40" height="40" rx="10" fill="#4CAF50" />
-      <text x="40" y="136" font-size="12" fill="#6B655C">
-        六个全都不一样
-      </text>
-      <text x="520" y="136" font-size="12" fill="#6B655C" text-anchor="end">
-        眼睛没有落点
-      </text>
-    </svg>
+  <rect x="180" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
+  <rect x="236" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
+  <rect x="292" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
+  <rect x="348" y="40" width="40" height="40" rx="10" fill="#FF5C93" />
+  <rect x="404" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
+  <rect x="460" y="40" width="40" height="40" rx="10" fill="#D8CFBA" />
+  <text x="40" y="66" font-size="12" fill="#6B655C">
+    五个一样，一个不同
+  </text>
+  <text x="640" y="66" font-size="12" fill="#6B655C" text-anchor="end">
+    眼睛直奔那个彩的
+  </text>
+  <rect x="180" y="110" width="40" height="40" rx="10" fill="#FEC433" />
+  <rect x="236" y="110" width="40" height="40" rx="10" fill="#FF5C93" />
+  <rect x="292" y="110" width="40" height="40" rx="10" fill="#3B8FF0" />
+  <rect x="348" y="110" width="40" height="40" rx="10" fill="#21B8AE" />
+  <rect x="404" y="110" width="40" height="40" rx="10" fill="#8B5CF6" />
+  <rect x="460" y="110" width="40" height="40" rx="10" fill="#4CAF50" />
+  <text x="40" y="136" font-size="12" fill="#6B655C">
+    六个全都不一样
+  </text>
+  <text x="640" y="136" font-size="12" fill="#6B655C" text-anchor="end">
+    眼睛没有落点
+  </text>
+</svg>

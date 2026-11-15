@@ -90,7 +90,9 @@
     color: var(--ink-3);
     text-decoration: none;
     opacity: 0;
-    transition: opacity 0.18s ease, color 0.18s ease;
+    transition:
+      opacity 0.18s ease,
+      color 0.18s ease;
   }
 
   @media (min-width: 1024px) {
