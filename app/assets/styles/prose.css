@@ -209,14 +209,34 @@
     display: table;
     width: 100%;
     margin: 0;
-    border-collapse: collapse;
+    /* 用 separate + border-spacing:0：Nuxt UI 的 ProseTr/ProseTh 会给四角单元格
+       加 rounded-* 工具类，但 border-collapse: collapse 会让单元格圆角失效，
+       四角因此呈现直角。separate 下圆角才生效，外圆角由 table 自身的
+       border-radius + overflow:hidden 收口（保证四角干净的圆角描边）。 */
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
     font-size: 14.5px;
   }
 
   .post-content table :is(th, td) {
     padding: 9px 14px;
     text-align: left;
-    border: 1px solid var(--line);
+    /* 只画右/下边框，避免 separate 下相邻单元格边框叠加成双倍；
+       上/左外边框由 table 的 border 承担。 */
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* 末列去掉右边框、末行去掉下边框，避免与外边框重叠成双倍 */
+  .post-content table :is(th, td):last-child {
+    border-right: none;
+  }
+
+  .post-content table tbody tr:last-child :is(td) {
+    border-bottom: none;
   }
 
   .post-content table thead th {
