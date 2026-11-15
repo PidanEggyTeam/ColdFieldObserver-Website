@@ -76,3 +76,13 @@ onMounted(() => {
     </template>
   </form>
 </template>
+
+<style scoped>
+/* 隐藏原生 type="search" 的清除按钮：SearchBox 已自带 UButton 清除按钮
+   （带 aria-label、清空后回焦并同步地址栏），避免 WebKit 系浏览器
+   （Chrome / Safari / Edge）输入时同时出现两个「×」。
+   Firefox 本就不渲染该按钮，隐藏对它无影响。 */
+input[type='search']::-webkit-search-cancel-button {
+  display: none;
+}
+</style>
