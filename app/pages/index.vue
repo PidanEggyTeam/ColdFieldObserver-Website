@@ -127,12 +127,22 @@ useHead({ title: SITE.title });
     >
       <CardGrid :posts="latest" empty-text="暂无文章" />
       <template #footer>
-        <div class="flex justify-center">
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-2.5">
           <UButton
             to="/posts/"
             size="lg"
             trailing-icon="i-lucide-arrow-right"
             label="查看全部文章"
+          />
+          <UButton
+            href="/atom.xml"
+            target="_blank"
+            size="lg"
+            icon="i-lucide-rss"
+            label="订阅RSS"
+            variant="outline"
+            color="neutral"
+            rel="alternate noopener"
           />
         </div>
       </template>

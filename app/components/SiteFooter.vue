@@ -10,19 +10,6 @@ import { FRIEND_LINKS, SOCIAL_LINKS } from '~/data/profile';
 // ============================================================
 // 这里的 year 必须使用固定字符串，而不是用Date相关方法动态获取
 const year: string = '2026';
-
-// 站内相对路径补 base；订阅源补 alternate / Atom MIME
-/*
-const socialLinks = SOCIAL_LINKS.map((link) => {
-  const isFeed: boolean = link.url === '/atom.xml';
-  return {
-    ...link,
-    href: link.url.startsWith('/') ? withBase(link.url) : link.url,
-    rel: isFeed ? 'alternate noopener' : 'noopener',
-    type: isFeed ? 'application/atom+xml' : undefined,
-  };
-});
-*/
 </script>
 
 <template>
@@ -79,28 +66,7 @@ const socialLinks = SOCIAL_LINKS.map((link) => {
               </a>
             </div>
           </div>
-
-          <!-- 暂时移除的部分
-          <div class="min-w-0">
-            <h2 class="mb-3 text-[13px] font-bold tracking-[0.5px] text-dimmed uppercase">
-              订阅与社交
-            </h2>
-            <div class="grid gap-2">
-              <a
-                v-for="link in socialLinks"
-                :key="link.url"
-                class="flex items-center gap-2.5 rounded-lg border border-default px-2.5 py-2 text-sm text-toned transition-colors hover:border-primary/35 hover:text-primary"
-                :href="link.href"
-                target="_blank"
-                :rel="link.rel"
-                :type="link.type"
-              >
-                <UIcon :name="link.icon" class="size-4 shrink-0" aria-hidden="true" />
-                <span>{{ link.name }}</span>
-              </a>
-            </div>
-          </div>
-        --></div>
+        </div>
       </UContainer>
     </template>
 
