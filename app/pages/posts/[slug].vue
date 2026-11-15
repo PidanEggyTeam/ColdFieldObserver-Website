@@ -3,6 +3,7 @@ import { computed, onMounted, watch } from 'vue';
 import { useAllPosts } from '~/composables/usePosts';
 import { usePostSeo } from '~/composables/usePostSeo';
 import { enhancePost } from '~/composables/usePostEnhance';
+import { SITE } from '#shared/site';
 
 const route = useRoute();
 const all = useAllPosts();
@@ -22,11 +23,12 @@ const next = computed(() =>
   index.value >= 0 && index.value < all.value.length - 1 ? all.value[index.value + 1] : undefined,
 );
 
-/** 文章头部的元信息（日期 + 分类 + 标签） */
+/** 文章头部的元信息（作者 + 日期 + 分类 + 标签） */
 const meta = computed(() => ({
   date: all.value[index.value]?.date ?? '',
   categories: all.value[index.value]?.categories ?? [],
   tags: all.value[index.value]?.tags ?? [],
+  author: all.value[index.value]?.author ?? SITE.author,
 }));
 
 // 目录不再由页面决定：正文里写了 [TOC] 才有目录（见 usePostEnhance 的 mountTocPlaceholder）
@@ -65,6 +67,7 @@ usePostSeo(post);
     <header class="mb-7">
       <h1 class="post-title">{{ post.title }}</h1>
       <div class="post-meta">
+        <span class="post-author">{{ meta.author }}</span>
         <time>{{ meta.date }}</time>
         <NuxtLink
           v-for="category in meta.categories"

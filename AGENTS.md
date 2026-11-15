@@ -1,4 +1,4 @@
-# Copilot Instructions
+# AGENTS.md
 
 > 本文件仅适用于 **coldfieldobserver.github.io**（冷域观者的个人网站），请勿套用到同作者的其他仓库。
 
@@ -149,7 +149,7 @@ content.config.ts / nuxt.config.ts / wrangler.jsonc
 
 ## 内容与数据
 
-- 文章 frontmatter：`title`、`date`（`YYYY-MM-DD HH:mm:ss`）、`categories`、`tags`、`description`、`stickypost`（仅 `true` 置顶）、`cover`。字段类型在 `content.config.ts` 用 zod 声明，**新增字段先改 schema**。
+- 文章 frontmatter：`title`、`date`（`YYYY-MM-DD HH:mm:ss`）、`categories`、`tags`、`description`、`stickypost`（仅 `true` 置顶）、`cover`、`author`（可选，文章作者；**未定义时由 `shared/utils/post.ts` 的 `toBasePost` 回退到 `SITE.author`（ColdFieldObserver）**）。字段类型在 `content.config.ts` 用 zod 声明，**新增字段先改 schema**。
 - `date` 由 YAML 1.2 解析成字符串，**必须**经 `shared/utils/date.ts` 的 `parsePostDate()` 按 UTC 解释，否则构建机时区不同会导致日期漂移。
 - 数据链路：`server/routes/api/posts.json.ts`（轻量列表）与 `api/search.json`（检索语料）在构建期查询内容库、预渲染成静态 JSON；前端由 `plugins/posts.ts` 预取进 `useState('posts:all')`，组件通过 `useAllPosts()` 读取。**不要在普通组件里直接调 `queryCollection`**；只有页面在 `<Suspense>` 内（如 `posts/[slug].vue`）才用 `useAsyncData` + `queryCollection`。
 - 列表分页统一 `usePagedPosts(getCurrent, getSource)`；`PAGE_SIZE`（9）在 `shared/site.ts`，构建期枚举与前端共用同一常量。
