@@ -1,5 +1,6 @@
 import { createRequire } from 'node:module';
 import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import { buildRoutes } from './build/post-index';
 import { rehypeExternalLinksBlank } from './build/rehype-external-links';
@@ -149,7 +150,13 @@ export default defineNuxtConfig({
         rehypePlugins: {
           'rehype-katex': {},
           // 站外链接补 target="_blank" rel="noopener noreferrer"（见 build/rehype-external-links.ts）
-          'rehype-external-links-blank': { instance: rehypeExternalLinksBlank },
+          'rehype-external-links-blank': {
+            instance: rehypeExternalLinksBlank,
+            options: {},
+            src: fileURLToPath(
+              new URL('./build/rehype-external-links.ts', import.meta.url),
+            ).replaceAll('\\', '/'),
+          },
         },
       },
     },
@@ -167,13 +174,16 @@ export default defineNuxtConfig({
       sizeLimitKb: 256,
       icons: [
         'lucide:archive',
+        'lucide:arrow-left',
         'lucide:arrow-right',
         'lucide:arrow-up',
         'lucide:arrow-up-right',
         'lucide:check',
+        'lucide:chevron-left',
         'lucide:chevron-right',
         'lucide:copy',
         'lucide:folder',
+        'lucide:folder-git-2',
         'lucide:gamepad-2',
         'lucide:globe',
         'lucide:hash',
@@ -183,6 +193,8 @@ export default defineNuxtConfig({
         'lucide:monitor',
         'lucide:moon',
         'lucide:newspaper',
+        'lucide:notepad-text',
+        'lucide:palette',
         'lucide:rss',
         'lucide:search',
         'lucide:sun',
@@ -192,6 +204,9 @@ export default defineNuxtConfig({
         'lucide:x',
         'simple-icons:bilibili',
         'simple-icons:github',
+        'simple-icons:qq',
+        'simple-icons:windows',
+        'simple-icons:wordpress',
       ],
     },
   },
