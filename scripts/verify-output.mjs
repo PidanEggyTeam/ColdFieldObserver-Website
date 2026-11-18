@@ -8,8 +8,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildRoutes, buildSitemapRoutes } from '../build/post-index.ts';
-import { SITE } from '../shared/site.ts';
+import { buildRoutes, buildSitemapRoutes, countPosts } from '../build/post-index.ts';
+import { FEED_LIMIT, SITE } from '../shared/site.ts';
 
 const PUBLIC_DIR = fileURLToPath(new URL('../.output/public', import.meta.url));
 
@@ -18,7 +18,7 @@ const PUBLIC_DIR = fileURLToPath(new URL('../.output/public', import.meta.url));
  *   /posts/xxx            → posts/xxx.html
  *   /posts/               → posts/index.html（带尾斜杠的索引页）
  *   /categories/公告       → categories/公告.html（中文不预先编码）
- *   /atom.xml、/404.html  → 原样
+ *   /rss.xml、/404.html  → 原样
  */
 function toFile(route) {
   const decoded = decodeURIComponent(route);
@@ -39,6 +39,23 @@ const missing = routes.filter((route) => !existsSync(join(PUBLIC_DIR, toFile(rou
 if (missing.length) {
   failures.push(`${missing.length} 条路由没有产物：`);
   for (const route of missing) failures.push(`  - ${route}  (期望 ${toFile(route)})`);
+}
+
+if (existsSync(join(PUBLIC_DIR, 'atom.xml'))) {
+  failures.push('产物里还有 atom.xml：Atom 订阅源已移除');
+}
+
+const rssFile = join(PUBLIC_DIR, 'rss.xml');
+if (existsSync(rssFile)) {
+  const rss = readFileSync(rssFile, 'utf8');
+  const items = [...rss.matchAll(/<item(?:\s|>)/g)];
+  const contents = [...rss.matchAll(/<content:encoded>([\s\S]*?)<\/content:encoded>/g)];
+  const expectedItems = Math.min(FEED_LIMIT, countPosts());
+  if (items.length !== expectedItems || contents.length !== expectedItems) {
+    failures.push(`rss.xml 应包含 ${expectedItems} 篇文章，但订阅项或正文数量不匹配`);
+  } else if (contents.some(([, content]) => !content.replace(/<!\[CDATA\[|\]\]>/g, '').trim())) {
+    failures.push('rss.xml 存在正文为空的文章订阅项');
+  }
 }
 
 const sitemapFile = join(PUBLIC_DIR, 'sitemap.xml');
@@ -71,9 +88,12 @@ if (existsSync(join(PUBLIC_DIR, 'tools'))) {
   failures.push('产物里还有 tools/：工具模块未清理干净');
 }
 
-// 字体自包含：sync-fonts.mjs 必须产出本地样式表，且页面不能再引用字体 CDN
-if (!existsSync(join(PUBLIC_DIR, 'fonts', 'harmonyos.css'))) {
+// 字体自包含：sync-fonts.mjs 必须产出四档字重，且页面不能再引用字体 CDN
+const fontCssFile = join(PUBLIC_DIR, 'fonts', 'harmonyos.css');
+if (!existsSync(fontCssFile)) {
   failures.push('缺少 fonts/harmonyos.css：sync-fonts.mjs 没有执行或执行失败');
+} else if (!readFileSync(fontCssFile, 'utf8').includes('font-weight: 600;')) {
+  failures.push('fonts/harmonyos.css 缺少 HarmonyOS Sans SC SemiBold（600）字重');
 }
 const homeFile = join(PUBLIC_DIR, 'index.html');
 if (existsSync(homeFile)) {
@@ -93,5 +113,5 @@ if (failures.length) {
 }
 
 console.log(
-  `[verify] ${routes.length} 条路由全部有产物 ✓ sitemap ${buildSitemapRoutes().length} 页 ✓ 字体自包含 / 静态预设 / 无工具页 ✓`,
+  `[verify] ${routes.length} 条路由全部有产物 ✓ RSS ${countPosts()} 篇含正文 ✓ sitemap ${buildSitemapRoutes().length} 页 ✓ 字体自包含 / 静态预设 / 无工具页 ✓`,
 );

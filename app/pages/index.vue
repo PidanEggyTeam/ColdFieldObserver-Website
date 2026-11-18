@@ -135,7 +135,7 @@ useHead({ title: SITE.title });
             label="查看全部文章"
           />
           <UButton
-            href="/atom.xml"
+            href="/rss.xml"
             target="_blank"
             size="lg"
             icon="i-lucide-rss"

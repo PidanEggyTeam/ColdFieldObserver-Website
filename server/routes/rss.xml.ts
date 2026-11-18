@@ -1,5 +1,5 @@
 import { queryCollection } from '@nuxt/content/server';
-import { SITE, FEED_LIMIT } from '#shared/site';
+import { FEED_LIMIT, SITE } from '#shared/site';
 import { absoluteUrl, byDateDesc, toBasePost } from '#shared/utils/post';
 import { mdcToHtml } from '#shared/utils/mdc';
 
@@ -13,7 +13,7 @@ const escapeXml = (value: unknown): string =>
 
 const rfc822 = (timestamp: number): string => new Date(timestamp || Date.now()).toUTCString();
 
-// RSS 2.0 订阅源（参考项目只有 Atom，这里按原站行为保留 RSS）
+// RSS 2.0 订阅源（构建期预渲染为静态 rss.xml）
 export default defineEventHandler(async (event) => {
   const docs = await queryCollection(event, 'posts').all();
   const items = docs
@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
     .slice(0, FEED_LIMIT)
     .map(({ doc, post }) => {
       const url = absoluteUrl(post.url);
-      const html = mdcToHtml((doc as { body?: never }).body);
+      const html = mdcToHtml((doc as { body?: never }).body).replace(/]]>/g, ']]]]><![CDATA[>');
       return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${escapeXml(url)}</link>

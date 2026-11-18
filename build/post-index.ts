@@ -83,7 +83,6 @@ export function buildRoutes(): string[] {
     '/archives/',
     '/categories/',
     '/tags/',
-    '/atom.xml',
     '/rss.xml',
     '/api/search.json',
     '/404.html',

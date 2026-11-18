@@ -25,6 +25,7 @@
 - **日志**：`/posts/`，由 @nuxt/content 驱动，卡片固定为「封面 + 标题 / 分类 · 日期 / 摘要」；支持分页、站内搜索与 Giscus 评论。
 - **博客分区**：`/archives/`（按年分页、页内按月分组）、`/categories/`、`/tags/`（索引页与详情分页）。这三项不占顶栏与底栏，入口只在博客列表页顶部。
 - **搜索**：`/search/`，与搜索弹窗共用关键词；语料是构建期固化的静态 JSON，纯前端匹配。
+- **RSS 订阅**：`/rss.xml`，包含全部文章及每篇文章的完整正文。
 - **工具**：站内工具模块已移除，不再有 `/tools/` 路由与首页工具矩阵；工具统一走顶栏的站外链接。
 - **底栏**：一级导航、友情链接、订阅与社交、版权说明。
 - **没有独立的「关于」页**：关于信息拆在首页与底栏。
@@ -65,7 +66,7 @@
 
 ## 字体与图标
 
-字体全部自包含，不再走 CDN：HarmonyOS Sans SC（400 / 500 / 700 三档 unicode-range 分片）在构建期由 `scripts/sync-fonts.mjs` 灌注到 `.output/public/fonts/` 并合成 `harmonyos.css`，Cascadia Code（代码块等宽）由 `@fontsource` 交给 Vite 打包。仓库仍不保留字体文件，回退链见 `app/assets/styles/base.css` 的 `--font-ui` / `--font-code`。
+字体全部自包含，不再走 CDN：HarmonyOS Sans SC（400 / 500 / 600 / 700 四档 unicode-range 分片）在构建期由 `scripts/sync-fonts.mjs` 灌注到 `.output/public/fonts/` 并合成 `harmonyos.css`，Cascadia Code（代码块等宽）由 `@fontsource` 交给 Vite 打包。仓库仍不保留字体文件，回退链见 `app/assets/styles/base.css` 的 `--font-ui` / `--font-code`。
 
 图标使用随 Nuxt UI 内置的 `@nuxt/icon`（Lucide + Simple Icons），图标集以 `@iconify-json/*` 本地安装，**构建期直接内联为 SVG**（`app.config.ts` 里 `icon.mode: 'svg'`），运行时不请求 Iconify API。
 

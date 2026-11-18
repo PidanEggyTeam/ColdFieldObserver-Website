@@ -5,7 +5,7 @@
  * 也不做注入式增强（见 .github/copilot-instructions.md）。
  * 为什么不交给 Vite：CJK 分包有几百个 woff2，交给构建图会让构建变慢、产物结构不可控。
  *
- * 只取 400 / 500 / 700 三档，对应 font-normal / font-medium / font-bold。
+ * 只取 400 / 500 / 600 / 700 四档，对应 font-normal / font-medium / font-semibold / font-bold。
  * 与 PidanUI 官网 / OpenPidanUI 官网同款。
  */
 import { createRequire } from 'node:module';
@@ -22,7 +22,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const PKG = 'harmonyos-sans-sc-webfont-splitted';
-const WEIGHTS = ['Regular', 'Medium', 'Bold'];
+const WEIGHTS = ['Regular', 'Medium', 'Semibold', 'Bold'];
 
 const require = createRequire(import.meta.url);
 const distDir = dirname(require.resolve(PKG));

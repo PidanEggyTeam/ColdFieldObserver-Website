@@ -43,7 +43,7 @@ onMounted(() => {
       本站搜索需要启用 JavaScript。你可以使用
       <!-- 订阅源由 server/routes 生成，不是页面：用裸 <a>，走 NuxtLink 会让
            vue-router 找不到路由而报 R0004 -->
-      <a class="text-primary underline" :href="withBase('/atom.xml')">RSS 订阅</a>
+      <a class="text-primary underline" :href="withBase('/rss.xml')">RSS 订阅</a>
       获取最新文章。
     </p>
 
