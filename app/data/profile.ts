@@ -66,13 +66,13 @@ export const FRIEND_LINKS: FriendLink[] = [
   },
   {
     name: '红蓝灯的秘密基地',
-    url: 'https://xxtsoft.top',
+    url: 'https://cn-rbl.github.io',
     icon: 'i-lucide-lightbulb',
   },
   {
-    name: '晨溪部落格',
-    url: 'https://www.chenxiy.top',
-    icon: 'i-lucide-notepad-text',
+    name: '水杨酸酸的个人网站',
+    url: 'https://syss.eggyhub.top',
+    icon: 'i-lucide-globe',
   },
   {
     name: '冷域观者的博客（上线了）',
