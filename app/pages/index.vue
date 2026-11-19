@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { SITE } from '#shared/site';
-import { AVATAR, GAME_IDS, HERO_INTRO, PROJECTS, SITE_NOTE } from '~/data/home';
+import { AVATAR, PERSONAL_TAG, GAME_IDS, HERO_INTRO, PROJECTS, SITE_NOTE } from '~/data/home';
 import { PERSONAL_PROFILE, SOCIAL_LINKS, TIMELINE } from '~/data/profile';
 import { latestPosts, useAllPosts } from '~/composables/usePosts';
 
@@ -65,6 +65,19 @@ useHead({ title: SITE.title });
       <p class="mx-auto mt-4 max-w-[620px] text-[15.5px] leading-[1.9] text-toned">
         {{ HERO_INTRO }}
       </p>
+
+      <!-- 个人标签 -->
+      <ul
+        class="mt-6 flex flex-col items-center gap-1.5 text-sm text-toned sm:flex-row sm:flex-wrap sm:justify-center"
+      >
+        <li
+          v-for="tag in PERSONAL_TAG"
+          :key="tag"
+          class="rounded-full border border-default px-3 py-1"
+        >
+          {{ tag }}
+        </li>
+      </ul>
 
       <div class="mt-6 flex flex-wrap items-center justify-center gap-2.5">
         <UButton
