@@ -1,13 +1,13 @@
 // ============================================================
 // MDC AST 序列化
-//   @nuxt/content 的 body 是 MDC（类 hast）树，服务端要输出 HTML（feed）
+//   @nuxt/content 的 body 是 Minimark 树，服务端要输出 HTML（feed）
 //   或纯文本（检索语料）时，用一个极小的序列化器即可，避免引入额外依赖。
 // ============================================================
 
 interface MdcNode {
   type?: string;
   tag?: string;
-  value?: string;
+  value?: string | unknown[];
   props?: Record<string, unknown>;
   attributes?: Record<string, unknown>;
   children?: MdcNode[];
@@ -46,9 +46,59 @@ function renderAttrs(props: Record<string, unknown> | undefined): string {
   return parts.length ? ` ${parts.join(' ')}` : '';
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function minimarkAttrs(props: unknown): string {
+  if (!isRecord(props)) return '';
+  const attributes: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(props)) {
+    if (['__ignoreMap', 'code', 'language', 'meta'].includes(key)) continue;
+    const name =
+      key === 'className' ? 'class' : key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+    if (key === 'style' && isRecord(value)) {
+      attributes[name] = Object.fromEntries(
+        Object.entries(value).map(([property, declaration]) => [
+          property.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`),
+          declaration,
+        ]),
+      );
+    } else {
+      attributes[name] = value;
+    }
+  }
+  return renderAttrs(attributes);
+}
+
+function minimarkToHtml(node: unknown): string {
+  if (typeof node === 'string') return escapeHtml(node);
+  if (!Array.isArray(node)) return '';
+  const [tag, props, ...children] = node;
+  if (typeof tag !== 'string') return node.map(minimarkToHtml).join('');
+  const attrs = minimarkAttrs(props);
+  if (VOID_TAGS.has(tag)) return `<${tag}${attrs}>`;
+  return `<${tag}${attrs}>${children.map(minimarkToHtml).join('')}</${tag}>`;
+}
+
+function minimarkToText(node: unknown): string {
+  if (typeof node === 'string') return node;
+  if (!Array.isArray(node)) return '';
+  const [tag, props, ...children] = node;
+  if (typeof tag !== 'string') return node.map(minimarkToText).join('');
+  const inner = [props, ...children]
+    .filter((child) => typeof child !== 'object' || child === null || Array.isArray(child))
+    .map(minimarkToText)
+    .join('');
+  return `${inner} `;
+}
+
 export function mdcToHtml(node: MdcNode | null | undefined): string {
   if (!node) return '';
-  if (node.type === 'text') return escapeHtml(node.value ?? '');
+  if (node.type === 'minimark') {
+    return Array.isArray(node.value) ? node.value.map(minimarkToHtml).join('') : '';
+  }
+  if (node.type === 'text') return typeof node.value === 'string' ? escapeHtml(node.value) : '';
   if (node.type === 'comment') return '';
   const children = (node.children ?? []).map((child) => mdcToHtml(child)).join('');
   if (node.type === 'root' || !node.tag) return children;
@@ -61,7 +111,10 @@ export function mdcToHtml(node: MdcNode | null | undefined): string {
 /** 纯文本（用于本地检索语料）：块级元素之间补空格，避免词粘连 */
 export function mdcToText(node: MdcNode | null | undefined): string {
   if (!node) return '';
-  if (node.type === 'text') return node.value ?? '';
+  if (node.type === 'minimark') {
+    return Array.isArray(node.value) ? node.value.map(minimarkToText).join('') : '';
+  }
+  if (node.type === 'text') return typeof node.value === 'string' ? node.value : '';
   const inner = (node.children ?? []).map((child) => mdcToText(child)).join('');
   return node.tag ? `${inner} ` : inner;
 }

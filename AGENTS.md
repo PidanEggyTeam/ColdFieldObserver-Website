@@ -114,7 +114,7 @@ app/
 └─ assets/styles/                 # main.css / tokens.css / base.css / prose.css / animation.css
 content/posts/*.md                # 文章（唯一内容源）
 public/                           # 图片（logo.webp / avatar.svg）、favicon、giscus 主题（只放资源，不放注入式 JS/CSS）
-server/routes/                    # atom.xml、rss.xml、api/posts.json、api/search.json
+server/routes/                    # rss.xml、api/posts.json、api/search.json
 shared/                           # site.ts（SITE / PAGE_SIZE / GISCUS）、types/、utils/
 build/post-index.ts               # 构建期 fs 枚举：prerender 路由全集
 scripts/                          # sync-fonts.mjs（注入本地字体）、verify-output.mjs（产物断言）
@@ -209,7 +209,7 @@ content.config.ts / nuxt.config.ts / wrangler.jsonc
 ## 字体与图标
 
 - 字体**全部自包含，不再走 CDN**，仓库依旧不保留字体文件，且 `ui.fonts: false` 不允许 @nuxt/fonts 接管：
-  - HarmonyOS Sans SC（`harmonyos-sans-sc-webfont-splitted@1.1.0` 的 `Regular` / `Medium` / `Bold` 三档分片）—— 正文与 UI。构建期由 `scripts/sync-fonts.mjs` 灌注到 `.output/public/fonts/` 并合成 `harmonyos.css`，`app.head` 只引这一个本地样式表；dev 下由 `nitro.publicAssets` 直接挂 npm 包目录。
+  - HarmonyOS Sans SC（`harmonyos-sans-sc-webfont-splitted@1.1.0` 的 `Regular` / `Medium` / `Semibold` / `Bold` 四档分片）—— 正文与 UI。构建期由 `scripts/sync-fonts.mjs` 灌注到 `.output/public/fonts/` 并合成 `harmonyos.css`，`app.head` 只引这一个本地样式表；dev 下由 `nitro.publicAssets` 直接挂 npm 包目录。
   - Cascadia Code（`@fontsource/cascadia-code`）—— 代码块等宽，`main.css` 引 `400.css` / `700.css` 交给 Vite 打包。
     回退链定义在 `base.css` 的 `--font-ui` / `--font-code`。
   - `scripts/verify-output.mjs` 会断言产物里有 `fonts/harmonyos.css` 且首页不再出现 `cdn.jsdelivr.net`；改字体链路时先确认这两条断言仍成立。

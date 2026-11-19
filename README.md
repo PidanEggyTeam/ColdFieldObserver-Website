@@ -3,11 +3,11 @@
 # ColdFieldObserver-Website
 
 ![Last Commit](https://img.shields.io/github/last-commit/PidanEggyTeam/ColdFieldObserver-Website?label=Last%20Commit)
-[![Nuxt](https://img.shields.io/badge/Nuxt-4.6.3-00DC82?logo=Nuxt&logoColor=white)](https://nuxt.com/)
+[![Nuxt](https://img.shields.io/badge/Nuxt-4.6.4-00DC82?logo=Nuxt&logoColor=white)](https://nuxt.com/)
 [![Nuxt UI](https://img.shields.io/badge/Nuxt%20UI-4.12-00DC82?logo=Nuxt&logoColor=white)](https://ui.nuxt.com/)
-[![Vue](https://img.shields.io/badge/Vue-3.5.44-4FC08D?logo=Vue.js&logoColor=white)](https://cn.vuejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-7.0.2-3178C6?logo=TypeScript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.3.3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Vue](https://img.shields.io/badge/Vue-3.5.45-4FC08D?logo=Vue.js&logoColor=white)](https://cn.vuejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0.2-3178C6?logo=TypeScript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.3.5-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 [![BiliBili](https://img.shields.io/badge/BiliBili-冷域观者-FF69B4?logo=bilibili&logoColor=F5F5F5)](https://space.bilibili.com/3632301571311734)
 [![GitHub](https://img.shields.io/badge/GitHub-ColdFieldObserver-blue?logo=github&logoColor=F5F5F5)](https://github.com/ColdFieldObserver)
@@ -25,6 +25,7 @@
 - **日志**：`/posts/`，由 @nuxt/content 驱动，卡片固定为「封面 + 标题 / 分类 · 日期 / 摘要」；支持分页、站内搜索与 Giscus 评论。
 - **博客分区**：`/archives/`（按年分页、页内按月分组）、`/categories/`、`/tags/`（索引页与详情分页）。这三项不占顶栏与底栏，入口只在博客列表页顶部。
 - **搜索**：`/search/`，与搜索弹窗共用关键词；语料是构建期固化的静态 JSON，纯前端匹配。
+- **RSS 订阅**：`/rss.xml`，包含全部文章及每篇文章的完整正文。
 - **工具**：站内工具模块已移除，不再有 `/tools/` 路由与首页工具矩阵；工具统一走顶栏的站外链接。
 - **底栏**：一级导航、友情链接、订阅与社交、版权说明。
 - **没有独立的「关于」页**：关于信息拆在首页与底栏。
@@ -65,7 +66,7 @@
 
 ## 字体与图标
 
-字体全部自包含，不再走 CDN：HarmonyOS Sans SC（400 / 500 / 700 三档 unicode-range 分片）在构建期由 `scripts/sync-fonts.mjs` 灌注到 `.output/public/fonts/` 并合成 `harmonyos.css`，Cascadia Code（代码块等宽）由 `@fontsource` 交给 Vite 打包。仓库仍不保留字体文件，回退链见 `app/assets/styles/base.css` 的 `--font-ui` / `--font-code`。
+字体全部自包含，不再走 CDN：HarmonyOS Sans SC（400 / 500 / 600 / 700 四档 unicode-range 分片）在构建期由 `scripts/sync-fonts.mjs` 灌注到 `.output/public/fonts/` 并合成 `harmonyos.css`，Cascadia Code（代码块等宽）由 `@fontsource` 交给 Vite 打包。仓库仍不保留字体文件，回退链见 `app/assets/styles/base.css` 的 `--font-ui` / `--font-code`。
 
 图标使用随 Nuxt UI 内置的 `@nuxt/icon`（Lucide + Simple Icons），图标集以 `@iconify-json/*` 本地安装，**构建期直接内联为 SVG**（`app.config.ts` 里 `icon.mode: 'svg'`），运行时不请求 Iconify API。
 

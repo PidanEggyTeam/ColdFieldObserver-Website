@@ -16,7 +16,7 @@ import { rehypeExternalLinksBlank } from './build/rehype-external-links';
 
 // ---- 字体（自包含，与 PidanUI 官网 / OpenPidanUI 官网同款）----
 // 生产：`nuxi generate` 之后由 scripts/sync-fonts.mjs 生成 /fonts/harmonyos.css；
-// 开发：还没有那次构建，直接把 npm 包里的三档样式（含同目录 woff2 分片）挂到
+// 开发：还没有那次构建，直接把 npm 包里的四档样式（含同目录 woff2 分片）挂到
 //       Nitro 的 /fonts 下，否则 dev 下样式表 404，正文会掉到系统字体。
 const require = createRequire(import.meta.url);
 const isDev = process.env.NODE_ENV === 'development';
@@ -31,6 +31,7 @@ const FONT_LINKS = isDev
   ? [
       { rel: 'stylesheet', href: '/fonts/Regular.css' },
       { rel: 'stylesheet', href: '/fonts/Medium.css' },
+      { rel: 'stylesheet', href: '/fonts/Semibold.css' },
       { rel: 'stylesheet', href: '/fonts/Bold.css' },
     ]
   : [{ rel: 'stylesheet', href: '/fonts/harmonyos.css' }];
@@ -80,16 +81,10 @@ export default defineNuxtConfig({
         // Giscus 评论区在文章页底部，懒加载触发时才注入 iframe；
         // 预连接可省掉首次展开评论时的 DNS + TCP + TLS 握手
         { rel: 'preconnect', href: 'https://giscus.app' },
-        // 字体自包含：HarmonyOS Sans SC 的 400 / 500 / 700 三档分片由
+        // 字体自包含：HarmonyOS Sans SC 的 400 / 500 / 600 / 700 四档分片由
         // scripts/sync-fonts.mjs 灌注到 /fonts，Cascadia Code 由 @fontsource
         // 交给 Vite 打包（见 main.css）。仓库不保留字体文件，也不再走 CDN。
         ...FONT_LINKS,
-        {
-          rel: 'alternate',
-          type: 'application/atom+xml',
-          title: '冷域观者的个人网站 · Atom 订阅',
-          href: '/atom.xml',
-        },
         {
           rel: 'alternate',
           type: 'application/rss+xml',
@@ -189,6 +184,7 @@ export default defineNuxtConfig({
         'lucide:hash',
         'lucide:house',
         'lucide:info',
+        'lucide:lightbulb',
         'lucide:menu',
         'lucide:monitor',
         'lucide:moon',

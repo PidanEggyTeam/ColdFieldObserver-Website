@@ -20,7 +20,7 @@ export const SITE = {
 /** 文章列表每页显示数量 */
 export const PAGE_SIZE = 9;
 
-/** Atom / RSS 收录条数 */
+/** RSS 订阅收录条数 */
 export const FEED_LIMIT = 20;
 
 /**

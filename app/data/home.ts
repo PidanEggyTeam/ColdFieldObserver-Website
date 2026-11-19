@@ -10,6 +10,9 @@ export const AVATAR: string = 'https://img.remit.ee/i/qYHNr12ajXtL';
 export const HERO_INTRO: string =
   '简单介绍一下我自己吧。我是冷域观者，一个逃跑吧少年和蛋仔派对玩家，偶尔也玩我的世界、PVZ2 和保卫萝卜4，这里是我的个人网站。';
 
+/** 个人标签 */
+export const PERSONAL_TAG: string[] = ['INTJ', '蛋仔派对玩家', 'Web前端开发者'];
+
 /** 我的项目 */
 export interface ProjectItem {
   name: string;

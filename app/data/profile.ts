@@ -56,8 +56,23 @@ export const FRIEND_LINKS: FriendLink[] = [
   },
   {
     name: 'BSOD-MEMZ的个人基地',
-    url: 'https://space.bilibili.com/3706982592678629',
+    url: 'https://xxtsoft.top',
     icon: 'i-simple-icons-windows',
+  },
+  {
+    name: '晨溪部落格',
+    url: 'https://www.chenxiy.top',
+    icon: 'i-lucide-notepad-text',
+  },
+  {
+    name: '红蓝灯的秘密基地',
+    url: 'https://cn-rbl.github.io',
+    icon: 'i-lucide-lightbulb',
+  },
+  {
+    name: '水杨酸酸的个人网站',
+    url: 'https://syss.eggyhub.top',
+    icon: 'i-lucide-globe',
   },
   {
     name: '冷域观者的博客（上线了）',
