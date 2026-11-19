@@ -6,7 +6,7 @@
   //   deploy command = npx wrangler deploy
   // previews 声明启用 Worker Previews，预览实例与 master 的生产 Worker 相互独立。
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "cfo-mecha-site",
+  "name": "coldfieldobserver-website",
   "compatibility_date": "2026-10-01",
   "observability": { "enabled": true },
   "assets": {
