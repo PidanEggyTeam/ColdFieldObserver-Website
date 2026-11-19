@@ -184,6 +184,7 @@ export default defineNuxtConfig({
         'lucide:hash',
         'lucide:house',
         'lucide:info',
+        'lucide:lightbulb',
         'lucide:menu',
         'lucide:monitor',
         'lucide:moon',
